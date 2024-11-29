@@ -5,6 +5,7 @@ import path from "path"
 import router from "./router";
 import routerAdmin from "./routerAdmin";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
 
 import session from "express-session";
 import ConnectMongoDb from "connect-mongodb-session";
@@ -26,6 +27,7 @@ app.use("/uploads",express.static("./uploads"));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(morgan(":method :url :response-time [:status] \n"));
+app.use(cookieParser())
 
 
 /** 2- SESSIONS */

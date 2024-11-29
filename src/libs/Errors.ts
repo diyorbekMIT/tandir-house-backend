@@ -11,19 +11,27 @@ export enum HttpCode {
 }
 
 
+
+
+
+
+
+
 export enum Message {
-    SOMETHING_WENT_WRONG = "SOMETHING WENT WRONG",
-    NO_DATA_FOUND = "NO DATA FOUND",
-    CREATE_FAILED = "CREATE FAILED",
-    UPDATE_FAILED = "UPDATE FAILED",
+   SOMETHING_WENT_WRONG = "SOMETHING WENT WRONG",
+   NO_DATA_FOUND = "NO DATA FOUND",
+   CREATE_FAILED = "CREATE FAILED",
+   UPDATE_FAILED = "UPDATE FAILED",
 
-    NO_MEMBER_NICK = "No member with that member nick",
-    USED_MEMBER_PHONE = "You are inserting already used nick or phone",
-    WRONG_PASSWORD = "Wrong password",
-    BAD_REQUEST = "Bad request",
+   NO_MEMBER_NICK = "No member with that member nick",
+   USED_MEMBER_PHONE = "You are inserting already used nick or phone",
+   WRONG_PASSWORD = "Wrong password",
+   BAD_REQUEST = "Bad request",
 
-    NOT_AUTHENTICATED = "Not authorized",
-    BLOCKED_USER = "BLOCKED USER"
+   NOT_AUTHENTICATED = "Not authorized",
+   BLOCKED_USER = "BLOCKED USER",
+   TOKEN_CREATION_FAILED = "TOKEN_CREATION_FAILED",
+   NOT_AUTHONTICATED = "NOT_AUTHONTICATED"
 }
 
 class Errors extends Error {
