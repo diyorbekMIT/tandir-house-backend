@@ -4,7 +4,7 @@ import restaurantController from "./controllers/restaurant.controller";
 import uploader from "./libs/utils/uploader";
 const router = express.Router();
 
-
+router.get("/member/restaurant", memberController.getRestaurant);
 router
   .post('/member/login', memberController.login);
 router
@@ -15,6 +15,8 @@ router.post("/member/update",
    memberController.verifyAuth, 
    uploader("members").single("memberImage"),
    memberController.updateMember);
+
+   router.get("/member/top-users", memberController.getTopUsers)
 
 export default router;
 
