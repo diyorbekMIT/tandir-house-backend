@@ -45,10 +45,20 @@ orderController.getMyOrders = async (req: ExtendedRequest, res: Response) => {
         if (err instanceof Errors) res.status(err.code).json(err)
         else res.status(Errors.standard.code).json(Errors.standard)
     }
-
 }
 
-
-
-
+orderController.updateOrder = async (req: ExtendedRequest, res: Response) => {
+    try {
+        console.log("UpdateOrder");
+        const input: OrderUpdateInput = req.body;
+        console.log(req.body);
+        
+        const result = await orderService.updateOrder(req.member, input)
+        res.status(HttpCode.CREATED).json(result)
+    } catch (err) {
+        console.log("Error, UpdateOrder", err);
+        if (err instanceof Errors) res.status(err.code).json(err)
+        else res.status(Errors.standard.code).json(Errors.standard)
+    }
+}
 export default orderController;

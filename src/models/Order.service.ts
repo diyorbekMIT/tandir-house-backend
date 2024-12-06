@@ -1,7 +1,7 @@
 import OrderItemModel from "../schema/OrderItem.model";
 import { Member } from "../libs/types/member";
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { ObjectId } from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
 import { OrderStatus } from "../libs/enums/order.enum";
 import MemberService from "./Member.service";
 import { OrderInquiry, OrderItemInput, OrderUpdateInput } from "../libs/types/order";
@@ -107,6 +107,38 @@ class OrderService {
 
         return result;
     }
+
+
+    public async updateOrder(member: Member, input: OrderUpdateInput): Promise<Order> {
+        const memberId = new mongoose.Types.ObjectId(member._id);
+        const orderId = new mongoose.Types.ObjectId(input.orderId);
+        const orderStatus = input.orderStatus;
+    
+        console.log("Attempting to update order with:");
+        console.log("memberId:", memberId);
+        console.log("orderId:", orderId);
+        console.log("orderStatus:", orderStatus);
+    
+        const result = await this.orderModel
+            .findOneAndUpdate(
+                { memberId: memberId, _id: orderId },
+                { orderStatus: orderStatus },
+                { new: true }
+            )
+            .exec();
+    
+        if (!result) {
+            console.log("No matching order found to update.");
+            throw new Errors(HttpCode.NOT_FOUND, Message.ORDER_NOT_FOUND); // Custom error
+        }
+    
+        if (orderStatus === OrderStatus.PROCESS) {
+            await this.memberService.addUserPoint(member, 1);
+        }
+    
+        return result as Order;
+    }
+    
 }
 
 export default OrderService;
